@@ -3,7 +3,7 @@
 
 To begin, we will load necessary packages and import a phyloseq object. ***These steps are necessary for all variables in this tutorial.***
 
-Step 1 (Main). Load packages. Note: you will also need an up-to-date version of R studio and the phyloseq package (installed through BioConductor): 
+1. Load packages. Note: you will also need an up-to-date version of R studio and the phyloseq package (installed through BioConductor): 
 ```
 #BioConductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -20,7 +20,7 @@ library(phyloseq)
 library(ggplot2)
 library(dplyr)
 ```
-Step 2 (Main). Import a phyloseq object. We will use the phyloseq object from the [dada2 tutorial for R users](https://benjjneb.github.io/dada2/tutorial.html). You can create the object yourself using the dada2 tutorial or import mine [here](https://github.com/mfrankz/microbiome/blob/main/ps.rds). 
+2. Import a phyloseq object. We will use the phyloseq object from the [dada2 tutorial for R users](https://benjjneb.github.io/dada2/tutorial.html). You can create the object yourself using the dada2 tutorial or import mine [here](https://github.com/mfrankz/microbiome/blob/main/ps.rds). 
 This object contains 16s data collected at both early and late timepoints (represented by the variable "When"). 
 
 ```
@@ -28,17 +28,18 @@ This object contains 16s data collected at both early and late timepoints (repre
 ps <- readRDS("path/ps.rds") #change path to your directory containing ps.rds
 ```
 
-## Alpha Diversity 
+
+# Alpha Diversity 
 ### Alpha diversity is a gross measurement of species abundance/richness within a sample. There are several different indices you can use to quantify alpha diversity. Here, we will use the Shannon and Simpson metrics.
 An R syntax file containing the alpha diversity code can be found [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_alpha.R).
 
 
-Step 1 (Alpha Diversity). Create a basic alpha diversity plot. This is the type of plot you will find in basic phyloseq tutorials.
+1. Create a basic alpha diversity plot. This is the type of plot you will find in basic phyloseq tutorials.
 ```
 plot_richness(ps, x="When", measures=c("Shannon", "Simpson"), color="When")
 ```
 
-Step 2 (Alpha Diversity). Create a publication-quality alpha diversity plot. If you would like to change any features (e.g., colors, axes), use ggplot2 syntax to edit.
+2. Create a publication-quality alpha diversity plot. If you would like to change any features (e.g., colors, axes), use ggplot2 syntax to edit.
 ```
 #set theme
 my_theme<-theme(
@@ -77,7 +78,7 @@ plot_richness(ps, x="When", measures=c("Shannon", "Simpson"),
 
 
 
-Step 3 (Alpha Diversity). Convert alpha diversity data into a dataframe for easier manipulation and analyses. The dataframe alpha_df contains a row for each sample with the metadata (SampleID, Subject, Gender, Day, When) and Shannon alpha diversity score.
+3. Convert alpha diversity data into a dataframe for easier manipulation and analyses. The dataframe alpha_df contains a row for each sample with the metadata (SampleID, Subject, Gender, Day, When) and Shannon alpha diversity score.
 ```
 alpha_df <- estimate_richness(ps, split = TRUE, measure = "Shannon")
 alpha_df$SampleID <- rownames(alpha_df) %>%
