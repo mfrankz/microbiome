@@ -39,7 +39,7 @@ An R syntax file containing the alpha diversity code can be found [here](https:/
 plot_richness(ps, x="When", measures=c("Shannon", "Simpson"), color="When")
 ```
 
-2. Create a publication-quality alpha diversity plot. If you would like to change any features (e.g., colors, axes), use ggplot2 syntax to edit.
+2. Create a publication-quality alpha diversity plot. If you would like to change any features (e.g., colors, axes), use ggplot2 syntax to edit. If you have additional grouping variables, consider using +facet_wrap(~VAR_NAME).
 ```
 #set theme
 my_theme<-theme(
