@@ -77,7 +77,7 @@ plot_richness(ps, x="When", measures=c("Shannon", "Simpson"),
 
 
 
-5. Convert alpha diversity data into a dataframe for easier manipulation and analyses
+5. Convert alpha diversity data into a dataframe for easier manipulation and analyses. The dataframe alpha_df contains a row for each sample with the metadata (SampleID, Subject, Gender, Day, When) and Shannon alpha diversity score.
 ```
 alpha_df <- estimate_richness(ps, split = TRUE, measure = "Shannon")
 alpha_df$SampleID <- rownames(alpha_df) %>%
