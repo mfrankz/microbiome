@@ -1,5 +1,5 @@
 # Downstream plotting and analysis of 16s microbiome data in R using phyloseq and ggplot
-### This tutorial will allow you to create publication-level graphs and convert phyloseq objects to dataframes for easier manipulation and analysis. Below you will find code for 3 variables: alpha diversity, beta diversity, and taxa frequency
+### This tutorial will allow you to create publication-level graphs and convert phyloseq objects into dataframes for easier manipulation and analysis. Below you will find code for extracting alpha diversity, beta diversity, and taxa frequency. 
 
 To begin, we will load packages and import a phyloseq object. ***This is necessary for all the following steps in this tutorial.***
 
@@ -29,8 +29,8 @@ ps <- readRDS("path/ps.rds") #change path to your directory containing ps.rds
 ```
 
 
-# Alpha Diversity 
-### Alpha diversity is a gross measurement of species abundance/richness within a sample. There are several different indices you can use to quantify alpha diversity. Here, we will use the Shannon and Simpson metrics.
+# 1. Alpha Diversity 
+### Alpha diversity is a gross measurement of species abundance/richness within a sample. There are several indices you can use to quantify alpha diversity. Here, we will use the Shannon and Simpson metrics.
 An R syntax file containing the alpha diversity code can be found [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_alpha.R).
 
 
@@ -97,7 +97,7 @@ model<- lm(Shannon~When, data=alpha_df) #determine effects of collection timepoi
 summary(model)
 ```
 
-# Beta Diversity 
+# 2. Beta Diversity 
 ### Beta diversity is a gross measurement of dissimilarity between samples. There are several methods that can be used to conduct dimensionality reduction to calculate beta diversity. Here, we will use the NMDS method to calculate Bray-Curtis dissimilarity. Other methods (e.g., PCoA), can be found [here](https://joey711.github.io/phyloseq/plot_ordination-examples.html).
 An R syntax file containing the beta diversity code can be found [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_beta.R).
 
@@ -141,7 +141,7 @@ samdf$SampleID <- rownames(samdf)
 names(beta_df)[names(beta_df) == "Var1"] <- "SampleID"
 beta_df<-merge(beta_df, samdf, by=c("SampleID"),all=T)
 ```
-4. Analyze beta diversity scores using PERMANOVA. This is the type of analysis most frequently used to determine whether beta diversity differs by conditions. To conduct PERMANOVA, we will need to create 2 separate dataframes: one that contains all possible independent variables (metadata) and one that contains the dependent variables (beta diversity scores).
+4. Analyze beta diversity scores using PERMANOVA. This type of analysis is used to determine the effects of your independent variables on beta diversity. To conduct PERMANOVA, we will need to create 2 separate dataframes: one that contains all possible independent variables (metadata) and one that contains the dependent variables (beta diversity scores).
 ```
 #divide into 2 dataframes (independent vs. dependent variables) as needed for PERMANOVA
 IVs <- subset(beta_df, select = c("SampleID", "Subject", "Gender", "Day", "When")) 
