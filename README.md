@@ -43,21 +43,21 @@ plot_richness(ps, x="When", measures=c("Shannon", "Simpson"), color="When")
 ```
 #set theme
 my_theme<-theme(
-  plot.title = element_text(size=40, face="bold"),
-  axis.title.x = element_text(size=30, face="bold"),
-  axis.title.y = element_text(size=30, face="bold"),
-  axis.text.y = element_text(size=20, face="bold", color="black"),
-  axis.text.x = element_text(size=20, angle=0, hjust = 0.4, face="bold", color="black"),
-  legend.title = element_text(size = 30, face="bold"),
-  legend.text = element_text(size = 25, face="bold"),
-  strip.text.x = element_text(size = 25, face="bold"), 
+  plot.title = element_text(size=22, face="bold"),
+  axis.title.x = element_text(size=20, face="bold"),
+  axis.title.y = element_text(size=20, face="bold"),
+  axis.text.y = element_text(size=16, face="bold", color="black"),
+  axis.text.x = element_text(size=16, angle=0, hjust = 0.4, face="bold", color="black"),
+  legend.title = element_text(size = 20, face="bold"),
+  legend.text = element_text(size = 16, face="bold"),
+  strip.text.x = element_text(size = 16, face="bold"), 
   strip.background = element_rect(color="white", fill="white"),
   panel.background = element_rect(fill="white", colour="white"),
   panel.border = element_rect(colour = "black", fill=NA, size=2),
   legend.key=element_blank(),
   legend.key.height = unit(1.5, "cm"),
   legend.key.width = unit(1, "cm")
-) 
+)  
 
 #create plot
 plot_richness(ps, x="When", measures=c("Shannon", "Simpson"), 
@@ -110,32 +110,13 @@ p<-plot_ordination(ps.prop, ord.bray, color="When", title="Beta Diversity (Bray-
 ```
 2. Create publication-quality Bray-Curtis plot
 ```
-#set theme
-my_theme<-theme(
-  plot.title = element_text(size=32, face="bold"),
-  axis.title.x = element_text(size=28, face="bold"),
-  axis.title.y = element_text(size=28, face="bold"),
-  axis.text.y = element_text(size=20, face="bold", color="black"),
-  axis.text.x = element_text(size=20, angle=0, hjust = 0.4, face="bold", color="black"),
-  legend.title = element_text(size = 28, face="bold"),
-  legend.text = element_text(size = 25, face="bold"),
-  strip.text.x = element_text(size = 25, face="bold"), 
-  strip.background = element_rect(color="white", fill="white"),
-  panel.background = element_rect(fill="white", colour="white"),
-  panel.border = element_rect(colour = "black", fill=NA, size=2),
-  legend.key=element_blank(),
-  legend.key.height = unit(1.5, "cm"),
-  legend.key.width = unit(1, "cm")
-) 
-
-#create beta diversity plot
 plot_ordination(ps.prop, ord.bray, color="When", shape="When")+
   geom_point(aes(fill=When),color="black",size=9, alpha=0.9)+
   scale_fill_manual(values = c("#2DA05A", "#234664"))+
   scale_color_manual(values = c("#2DA05A", "#234664"))+
   scale_shape_manual(values=c(21, 24))+
   ggtitle("Beta Diversity (Bray-Curtis Index)")+
-  stat_ellipse(type = "norm", linetype = 2, size=1.5)+
-  my_theme
+  stat_ellipse(type = "norm", linetype = 2, size=1.5)+ #ellipses represent a 95% confidence interval
+  my_theme 
 ```
-
+![beta_plot](https://user-images.githubusercontent.com/88938223/129749581-1f3f8386-42c5-454a-bd2b-fb37f41a9cef.png)
