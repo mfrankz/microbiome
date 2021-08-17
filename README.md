@@ -83,6 +83,7 @@ alpha_df <- estimate_richness(ps, split = TRUE, measure = "Shannon")
 alpha_df$SampleID <- rownames(alpha_df) %>%
   as.factor()
 alpha_df <- merge(alpha_df, sample_data(ps), by=0)
+View(alpha_df)
 
 #the dataframe format can now be used for easier manipulation/analyses. See examples below: 
 #example 1: check distribution of alpha scores
