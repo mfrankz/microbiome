@@ -1,7 +1,7 @@
 # Downstream plotting and analysis of 16s microbiome data in R using phyloseq and ggplot
 ### This tutorial will allow you to create publication-level graphs and convert phyloseq objects to dataframes for easier manipulation and analysis. Below you will find code for 3 variables: alpha diversity, beta diversity, and taxa frequency
 
-To begin, we will load necessary packages and import a phyloseq object. ***These steps are necessary for all variables in this tutorial.***
+To begin, we will load packages and import a phyloseq object. ***These steps are necessary for all variables in this tutorial.***
 
 1. Load packages. Note: you will also need an up-to-date version of R studio and the phyloseq package (installed through BioConductor): 
 ```
