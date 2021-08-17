@@ -5,6 +5,17 @@ To follow this tutorial, you will need 16s data that has already been processed 
 
 ### Below you will find code for 3 variables: alpha diversity, beta diversity, and taxa frequency. For each variable, we will create publication-quality graphs and convert the data into a dataframe format.
 
+### note: you will need an up-to-date version of R studio and the phyloseq package installed for this tutorial. Phyloseq is installed through BioConductor. Run syntax below if you do not have BioConductor/phyloseq:
+```
+#BioConductor
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install(version = "3.13") 
+#phyloseq
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("phyloseq")
+```
 
 ## Alpha Diversity 
 ### Alpha diversity is a gross measurement of species abundance/richness within a sample. There are several different indices you can use to quantify alpha diversity. Here, we will use the Shannon and Simpson metrics.
