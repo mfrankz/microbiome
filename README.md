@@ -20,6 +20,7 @@ BiocManager::install("phyloseq")
 
 ## Alpha Diversity 
 ### Alpha diversity is a gross measurement of species abundance/richness within a sample. There are several different indices you can use to quantify alpha diversity. Here, we will use the Shannon and Simpson metrics.
+An R syntax file containing the alpha diversity code can be found [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_alpha.R).
 
 1. Load libraries
 ```
