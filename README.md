@@ -58,7 +58,7 @@ plot_richness(ps, x="When", measures=c("Shannon", "Simpson"),
   xlab("Collection Timepoint")+
   my_theme+
   theme(legend.position = "none")
-![alpha](https://user-images.githubusercontent.com/88938223/129731571-bc9572a5-117d-4ebb-aad5-99d096cb34b8.png)
+![microbiome](/microbiome/alpha_plot.png)
 
 
 #save plot
