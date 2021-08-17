@@ -58,7 +58,8 @@ plot_richness(ps, x="When", measures=c("Shannon", "Simpson"),
   xlab("Collection Timepoint")+
   my_theme+
   theme(legend.position = "none")
-![alpha](https://user-images.githubusercontent.com/88938223/129731036-575bc2e2-7e19-4dc5-9e5e-ac6beb0d5947.png)
+![alpha](https://user-images.githubusercontent.com/88938223/129731571-bc9572a5-117d-4ebb-aad5-99d096cb34b8.png)
+
 
 #save plot
 ggsave("alpha.png", width = 30, height = 20, units = "cm")
