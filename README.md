@@ -122,3 +122,35 @@ plot_ordination(ps.prop, ord.bray, color="When", shape="When")+
 ```
 
 <img src="https://user-images.githubusercontent.com/88938223/129749581-1f3f8386-42c5-454a-bd2b-fb37f41a9cef.png" width="600">
+
+3. Convert beta diversity scores to data frame format for easier manipulation and analysis. 
+```
+#create data frame with beta diversity scores
+library(reshape2)
+beta_df = phyloseq::distance(ps.prop, "bray")
+beta_df = melt(as.matrix(beta_df))
+beta_df <- reshape(beta_df, 
+                   timevar = "Var2",
+                   idvar = c("Var1"),
+                   direction = "wide")
+                   
+#create dataframe containing metadata for easier access and merge with beta diversity values
+samdf<-data.frame(sample_data(ps))
+samdf$SampleID <- rownames(samdf)
+names(beta_df)[names(beta_df) == "Var1"] <- "SampleID"
+beta_df<-merge(beta_df, samdf, by=c("SampleID"),all=T)
+```
+4. Analyze beta diversity scores using PERMANOVA. This is the type of analysis most frequently used to determine whether beta diversity differs by conditions. To conduct PERMANOVA, we will need to create 2 separate dataframes: one that contains all possible independent variables (metadata) and one that contains the dependent variables (beta diversity scores).
+```
+#divide into 2 dataframes (independent vs. dependent variables) as needed for PERMANOVA
+IVs <- subset(beta_df, select = c("SampleID", "Subject", "Gender", "Day", "When")) 
+DVs <- subset(beta_df, select = -c(SampleID, Subject, Gender, Day, When)) 
+
+#conduct PERMANOVA
+library(vegan)
+permanova <- adonis(DVs ~ When, data=IVs, permutations=999)
+permanova
+```
+In the permanova output, we can see that collection timepoint ("When") has a significant effect on beta diversity.
+          
+
