@@ -107,7 +107,7 @@ Note: you must import the phyloseq/ggplot packages as well as a phyloseq object.
 ```
 ps.prop <- transform_sample_counts(ps, function(otu) otu/sum(otu))
 ord.bray <- ordinate(ps.prop, method="NMDS", distance="bray")
-p<-plot_ordination(ps.prop, ord.bray, color="When", title="Beta Diversity (Bray-Curtis)")
+plot_ordination(ps.prop, ord.bray, color="When", title="Beta Diversity (Bray-Curtis)")
 ```
 2. Create publication-quality Bray-Curtis plot
 ```
@@ -133,6 +133,7 @@ beta_df <- reshape(beta_df,
                    timevar = "Var2",
                    idvar = c("Var1"),
                    direction = "wide")
+View(beta_df)
                    
 #create dataframe containing metadata for easier access and merge with beta diversity values
 samdf<-data.frame(sample_data(ps))
