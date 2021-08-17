@@ -99,9 +99,9 @@ summary(model)
 
 # Beta Diversity 
 ### Beta diversity is a gross measurement of dissimilarity between samples. There are several methods that can be used to conduct dimensionality reduction to calculate beta diversity. Here, we will use the NMDS method to calculate Bray-Curtis dissimilarity. Other methods (e.g., PCoA), can be found [here](https://joey711.github.io/phyloseq/plot_ordination-examples.html).
-An R syntax file containing the beta diversity code can be found here.
+An R syntax file containing the beta diversity code can be found [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_beta.R).
 
-Note: you must import the phyloseq/ggplot packages as well as a phyloseq object. See instructions above if you have not already completed this step. 
+Note: you must import the phyloseq/ggplot packages and the phyloseq object ps. See instructions above if you have not already completed this step. 
 
 1. Create basic Bray-Curtis plot
 ```
