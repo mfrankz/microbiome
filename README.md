@@ -58,14 +58,12 @@ plot_richness(ps, x="When", measures=c("Shannon", "Simpson"),
   xlab("Collection Timepoint")+
   my_theme+
   theme(legend.position = "none")
-
+```
 
 ![alpha_plot](https://user-images.githubusercontent.com/88938223/129733837-651a2a56-aa66-4244-8358-a061cb059e6e.png)
 
 
-#save plot
-ggsave("alpha.png", width = 30, height = 20, units = "cm")
-```
+
 
 5. Convert alpha diversity data into a dataframe for easier manipulation and analyses
 ```
