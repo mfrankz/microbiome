@@ -60,7 +60,7 @@ plot_richness(ps, x="When", measures=c("Shannon", "Simpson"),
   theme(legend.position = "none")
 
 
-![microbiome](alpha_plot.png)
+![alpha_plot](https://user-images.githubusercontent.com/88938223/129733837-651a2a56-aa66-4244-8358-a061cb059e6e.png)
 
 
 #save plot
