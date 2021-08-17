@@ -95,3 +95,47 @@ alpha_df$When<-as.factor(alpha_df$When)
 model<- lm(Shannon~When, data=alpha_df) #determine effects of collection timepoint
 summary(model)
 ```
+
+# Beta Diversity 
+### Beta diversity is a gross measurement of dissimilarity between samples. There are several methods that can be used to conduct dimensionality reduction to calculate beta diversity. Here, we will use the NMDS method to calculate Bray-Curtis dissimilarity. Other methods (e.g., PCoA), can be found [here](https://joey711.github.io/phyloseq/plot_ordination-examples.html).
+An R syntax file containing the beta diversity code can be found here.
+
+Note: you must import the phyloseq/ggplot packages as well as a phyloseq object. See instructions above if you have not already completed this step. 
+
+1. Create basic Bray-Curtis plot
+```
+ps.prop <- transform_sample_counts(ps, function(otu) otu/sum(otu))
+ord.bray <- ordinate(ps.prop, method="NMDS", distance="bray")
+p<-plot_ordination(ps.prop, ord.bray, color="When", title="Beta Diversity (Bray-Curtis)")
+```
+2. Create publication-quality Bray-Curtis plot
+```
+#set theme
+my_theme<-theme(
+  plot.title = element_text(size=32, face="bold"),
+  axis.title.x = element_text(size=28, face="bold"),
+  axis.title.y = element_text(size=28, face="bold"),
+  axis.text.y = element_text(size=20, face="bold", color="black"),
+  axis.text.x = element_text(size=20, angle=0, hjust = 0.4, face="bold", color="black"),
+  legend.title = element_text(size = 28, face="bold"),
+  legend.text = element_text(size = 25, face="bold"),
+  strip.text.x = element_text(size = 25, face="bold"), 
+  strip.background = element_rect(color="white", fill="white"),
+  panel.background = element_rect(fill="white", colour="white"),
+  panel.border = element_rect(colour = "black", fill=NA, size=2),
+  legend.key=element_blank(),
+  legend.key.height = unit(1.5, "cm"),
+  legend.key.width = unit(1, "cm")
+) 
+
+#create beta diversity plot
+plot_ordination(ps.prop, ord.bray, color="When", shape="When")+
+  geom_point(aes(fill=When),color="black",size=9, alpha=0.9)+
+  scale_fill_manual(values = c("#2DA05A", "#234664"))+
+  scale_color_manual(values = c("#2DA05A", "#234664"))+
+  scale_shape_manual(values=c(21, 24))+
+  ggtitle("Beta Diversity (Bray-Curtis Index)")+
+  stat_ellipse(type = "norm", linetype = 2, size=1.5)+
+  my_theme
+```
+
