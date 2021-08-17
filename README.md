@@ -59,9 +59,9 @@ plot_richness(ps, x="When", measures=c("Shannon", "Simpson"),
   my_theme+
   theme(legend.position = "none")
 
-<p>
-![microbiome](/microbiome/alpha_plot.png)
-</p>
+
+![microbiome](alpha_plot.png)
+
 
 #save plot
 ggsave("alpha.png", width = 30, height = 20, units = "cm")
