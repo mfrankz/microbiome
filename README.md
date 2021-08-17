@@ -73,7 +73,8 @@ plot_richness(ps, x="When", measures=c("Shannon", "Simpson"),
   theme(legend.position = "none")
 ```
 
-![alpha_plot](https://user-images.githubusercontent.com/88938223/129733837-651a2a56-aa66-4244-8358-a061cb059e6e.png)
+
+<img src="https://user-images.githubusercontent.com/88938223/129751850-28c82c18-cae8-41f9-b9e9-ed06e809bb8c.png" width="600">
 
 
 
@@ -119,4 +120,5 @@ plot_ordination(ps.prop, ord.bray, color="When", shape="When")+
   stat_ellipse(type = "norm", linetype = 2, size=1.5)+ #ellipses represent a 95% confidence interval
   my_theme 
 ```
-![beta_plot](https://user-images.githubusercontent.com/88938223/129749581-1f3f8386-42c5-454a-bd2b-fb37f41a9cef.png)
+
+<img src="https://user-images.githubusercontent.com/88938223/129749581-1f3f8386-42c5-454a-bd2b-fb37f41a9cef.png" width="600">
