@@ -17,21 +17,24 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("phyloseq")
 ```
+You will also need to load the following libraries and import a phyloseq object to work with. Download mine [here](https://github.com/mfrankz/microbiome/blob/main/ps.rds) if you have not already.
+This phyloseq object (named ps) contains an ASV table with unique sequences from 16s sequencing. These data were collected at both early and late timepoints (represented by the variable "When"). ***These steps are necessary for all variables in this tutorial.***
+
+```
+#load libraries
+library(phyloseq)
+library(ggplot2)
+library(dplyr)
+
+#read in phyloseq object
+ps <- readRDS("path/ps.rds") #change path to your directory containing ps.rds
+```
 
 ## Alpha Diversity 
 ### Alpha diversity is a gross measurement of species abundance/richness within a sample. There are several different indices you can use to quantify alpha diversity. Here, we will use the Shannon and Simpson metrics.
 An R syntax file containing the alpha diversity code can be found [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_alpha.R).
 
-1. Load libraries
-```
-library(phyloseq)
-library(ggplot2)
-library(dplyr)
-```
-2. Import phyloseq object. Download mine [here](https://github.com/mfrankz/microbiome/blob/main/ps.rds) if you have not already.
-This object contains an ASV table with unique sequences from 16s sequencing. These data were collected at both early and late timepoints (represented by the variable "When"). 
-```
-ps <- readRDS("path/ps.rds") #change path to your directory containing ps.rds
+
 ```
 
 3. Create a basic alpha diversity plot. This is the type of plot you will find in basic phyloseq tutorials.
