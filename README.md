@@ -1,5 +1,5 @@
 # Downstream plotting and analysis of 16s microbiome data in R using phyloseq and ggplot
-### This tutorial will allow you to create publication-level graphs and convert phyloseq objects into dataframes for easier manipulation and analysis. Below you will find code for extracting alpha diversity, beta diversity, and taxa frequency. 
+### This tutorial will allow you to create publication-level graphs and convert phyloseq objects into dataframes for easier manipulation and analysis. Below you will find code for extracting alpha diversity, beta diversity, and taxa abundance. 
 
 To begin, we will load packages and import a phyloseq object. ***This is necessary for all the following steps in this tutorial.***
 
@@ -155,4 +155,61 @@ permanova
 ```
 In the permanova output, we can see that collection timepoint has a significant effect on beta diversity.
           
+#3. Taxa Abundance
+### The next step is to determine how changes in specific levels of taxonomy may be driving these broader changes in alpha and beta diversity. Below, we will quantify taxa abundance at the level of the phylum, but please note that you can easily change this to other levels of taxonomy (e.g., Species, Family).
 
+Note: you must import the phyloseq/ggplot packages and the phyloseq object ps. See instructions above if you have not already completed this step. 
+
+1. Prepare phylum data by (1) converting counts to relative abundance, (2) isolating phylum data, and (3) converting the phylum data to a dataframe. 
+```
+#transform abundance to relative counts
+ps_rel <- transform_sample_counts(ps, function(x) x/sum(x))
+
+#isolate and filter phylum data
+phy <- tax_glom(ps_rel, taxrank="Phylum") 
+phy <- prune_taxa(taxa_sums(phy)>=0.01, phy)
+
+#convert phylum data to dataframe format
+phy_df <- psmelt(phy)
+View(phy_df)
+```
+
+<img src="https://user-images.githubusercontent.com/88938223/129935058-0beb9c71-ffb8-49d4-a572-29f9431df772.png" width="600">
+
+2. Create publication-quality plot of individual samples. Note: if you have individual subjects data, you can change the facet variable to your subject variable. 
+```
+ggplot(phy_df, aes(x = Sample, y = Abundance, fill = Phylum)) +
+  geom_bar(stat = "identity", position = "stack", color = "black") +
+  theme(axis.text.x = element_text(angle = -90, hjust = 0))+  	
+  ggtitle("Phyla Abundance Across Individual Samples") +
+  ylab("Relative Abundance")+
+  scale_fill_brewer(palette="Paired")+
+  my_theme+
+  theme(axis.text.x = element_text(size=14,angle=90))
+```
+
+<img src="https://user-images.githubusercontent.com/88938223/129935966-e6a24f25-738c-4938-80b7-95d5c17fcd02.png" width="600">
+
+3. Create publication-quality plot of aggregate data. We will manually calculate the mean of each phylum per timepoint before creating the plot. 
+```
+#calculate average phyla abundance across timepoints
+library(tidyr)
+phy_avg <- aggregate(phy_df[,"Abundance"],
+                     by = list(phy_df[,"Timepoint"], 
+                               phy_df[,"Phylum"]),
+                     FUN = function(x) mean = mean(x))
+colnames(phy_avg) <- c("Timepoint", "Phylum", "Abundance")
+
+#plot aggregate abundance across timepoint
+ggplot(phy_avg, aes(x = Phylum, y = Abundance, fill=Phylum))+
+  facet_wrap(~Timepoint)+
+  geom_bar(stat = "identity", position = "stack", color = "black")+
+  theme(axis.text.x = element_text(angle = -90, hjust = 0))+  	
+  ggtitle("Phyla Abundance Across Time")+
+  ylab("Relative Abundance")+
+  scale_fill_brewer(palette="Paired")+
+  my_theme+
+  theme(axis.text.x = element_text(size=14,angle=-45, vjust=-0.5))
+```
+
+<img src="https://user-images.githubusercontent.com/88938223/129936519-81f74368-2db2-40a7-933f-34c6a001873f.png" width="600">
