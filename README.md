@@ -35,7 +35,7 @@ sample_data(ps)$Timepoint<-sample_data(ps)$When
 An R syntax file containing the alpha diversity code can be found [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_alpha.R).
 
 
-1. Create a basic alpha diversity plot. This is the type of plot you will find in basic phyloseq tutorials.
+1. Create a basic alpha diversity plot. This is the type of plot you will find in phyloseq tutorials.
 ```
 plot_richness(ps, x="Timepoint", measures=c("Shannon", "Simpson"), color="Timepoint")
 ```
@@ -154,6 +154,8 @@ permanova <- adonis(DVs ~ Timepoint, data=IVs, permutations=999)
 permanova
 ```
 In the permanova output, we can see that collection timepoint has a significant effect on beta diversity.
+
+<img src="https://user-images.githubusercontent.com/88938223/129937278-c7ba41b5-ad6b-4c17-973b-c6efdce106d3.png" width="600">
           
 #3. Taxa Abundance
 ### The next step is to determine how changes in specific levels of taxonomy may be driving these broader changes in alpha and beta diversity. Below, we will quantify taxa abundance at the level of the phylum, but please note that you can easily change this to other levels of taxonomy (e.g., Species, Family).
