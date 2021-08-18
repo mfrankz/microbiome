@@ -5,12 +5,12 @@ To begin, we will load packages and import a phyloseq object. ***This is necessa
 
 1. Load packages. Note: you will also need an up-to-date version of R studio and the phyloseq package (installed through BioConductor): 
 ```
-#BioConductor
+#install BioConductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install(version = "3.13") 
 
-#phyloseq
+#install phyloseq
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("phyloseq")
