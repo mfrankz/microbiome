@@ -21,11 +21,12 @@ library(ggplot2)
 library(dplyr)
 ```
 2. Import a phyloseq object. We will use the phyloseq object from the [dada2 tutorial for R users](https://benjjneb.github.io/dada2/tutorial.html). You can create the object yourself using the dada2 tutorial or import mine [here](https://github.com/mfrankz/microbiome/blob/main/ps.rds). 
-This object contains 16s data collected at both early and late timepoints (represented by the variable "When"). 
+This object contains 16s data collected at both early and late timepoints (represented by the variable "When", which we will rename as "Timepoint"). 
 
 ```
-#read in phyloseq object
-ps <- readRDS("path/ps.rds") #change path to your directory containing ps.rds
+#read in phyloseq object and rename "When" variable
+ps <- readRDS("path/ps.rds") #change "path" to the name of your folder containing ps.rds
+sample_data(ps)$Timepoint<-sample_data(ps)$When
 ```
 
 
@@ -36,7 +37,7 @@ An R syntax file containing the alpha diversity code can be found [here](https:/
 
 1. Create a basic alpha diversity plot. This is the type of plot you will find in basic phyloseq tutorials.
 ```
-plot_richness(ps, x="When", measures=c("Shannon", "Simpson"), color="When")
+plot_richness(ps, x="Timepoint", measures=c("Shannon", "Simpson"), color="Timepoint")
 ```
 
 2. Create a publication-quality alpha diversity plot. If you would like to change any features (e.g., colors, axes), use ggplot2 syntax to edit. If you have additional grouping variables, consider using +facet_wrap(~VAR_NAME).
@@ -60,22 +61,20 @@ my_theme<-theme(
 )  
 
 #create plot
-plot_richness(ps, x="When", measures=c("Shannon", "Simpson"), 
-                 color="When", shape="When")+   
-  geom_point(aes(fill=When),size=9, alpha=0.9, color="black")+
+plot_richness(ps, x="Timepoint", measures=c("Shannon", "Simpson"), 
+                 color="Timepoint", shape="Timepoint")+   
+  geom_point(aes(fill=Timepoint),size=6, alpha=0.9, color="black")+
   scale_fill_manual(values = c("#2DA05A", "#234664"))+
   scale_color_manual(values = c("#2DA05A", "#234664"))+
   scale_shape_manual(values=c(21, 24))+
   ylab("Diversity Score")+
   ggtitle("Alpha Diversity Across Time")+ 
   xlab("Collection Timepoint")+
-  my_theme+
-  theme(legend.position = "none")
+  my_theme
 ```
 
 
-<img src="https://user-images.githubusercontent.com/88938223/129751850-28c82c18-cae8-41f9-b9e9-ed06e809bb8c.png" width="500">
-
+<img src="https://user-images.githubusercontent.com/88938223/129901354-1b5820e7-1d83-4896-a310-b962b9abdd8f.png" width="500">
 
 
 
@@ -85,6 +84,7 @@ alpha_df <- estimate_richness(ps, split = TRUE, measure = "Shannon")
 alpha_df$SampleID <- rownames(alpha_df) %>%
   as.factor()
 alpha_df <- merge(alpha_df, sample_data(ps), by=0)
+names(alpha_df)[names(alpha_df) == "Row.names"] <- "SampleID"
 View(alpha_df)
 
 #the dataframe format can now be used for easier manipulation/analyses. See examples below: 
@@ -92,8 +92,8 @@ View(alpha_df)
 hist(alpha_df$Shannon)
 
 #example 2: linear regression
-alpha_df$When<-as.factor(alpha_df$When)
-model<- lm(Shannon~When, data=alpha_df) #determine effects of collection timepoint
+alpha_df$Timepoint<-as.factor(alpha_df$Timepoint)
+model<- lm(Shannon~Timepoint, data=alpha_df) #determine effects of collection timepoint
 summary(model)
 ```
 
@@ -107,21 +107,21 @@ Note: you must import the phyloseq/ggplot packages and the phyloseq object ps. S
 ```
 ps.prop <- transform_sample_counts(ps, function(otu) otu/sum(otu))
 ord.bray <- ordinate(ps.prop, method="NMDS", distance="bray")
-plot_ordination(ps.prop, ord.bray, color="When", title="Beta Diversity (Bray-Curtis)")
+plot_ordination(ps.prop, ord.bray, color="Timepoint", title="Beta Diversity (Bray-Curtis)")
 ```
 2. Create publication-quality Bray-Curtis plot
 ```
-plot_ordination(ps.prop, ord.bray, color="When", shape="When")+
-  geom_point(aes(fill=When),color="black",size=9, alpha=0.9)+
+plot_ordination(ps.prop, ord.bray, color="Timepoint", shape="Timepoint")+
+  geom_point(aes(fill=Timepoint),color="black",size=9, alpha=0.9)+
   scale_fill_manual(values = c("#2DA05A", "#234664"))+
   scale_color_manual(values = c("#2DA05A", "#234664"))+
   scale_shape_manual(values=c(21, 24))+
   ggtitle("Beta Diversity (Bray-Curtis Index)")+
-  stat_ellipse(type = "norm", linetype = 2, size=1.5)+ #ellipses represent a 95% confidence interval
-  my_theme 
+  stat_ellipse(type = "norm", linetype = 2, size=1.5)+ #ellipses represent a 95% confidence interval 
+  my_theme
 ```
 
-<img src="https://user-images.githubusercontent.com/88938223/129749581-1f3f8386-42c5-454a-bd2b-fb37f41a9cef.png" width="600">
+<img src="https://user-images.githubusercontent.com/88938223/129900230-ac865a0f-fad8-45e9-b40d-fb70cc8c806a.png" width="600">
 
 3. Convert beta diversity scores to data frame format for easier manipulation and analysis. 
 ```
@@ -137,6 +137,7 @@ View(beta_df)
                    
 #create dataframe containing metadata for easier access and merge with beta diversity values
 samdf<-data.frame(sample_data(ps))
+samdf <- subset(samdf, select = -c(When)) 
 samdf$SampleID <- rownames(samdf)
 names(beta_df)[names(beta_df) == "Var1"] <- "SampleID"
 beta_df<-merge(beta_df, samdf, by=c("SampleID"),all=T)
@@ -144,14 +145,14 @@ beta_df<-merge(beta_df, samdf, by=c("SampleID"),all=T)
 4. Analyze beta diversity scores using PERMANOVA. This type of analysis is used to determine the effects of your independent variables on beta diversity. To conduct PERMANOVA, we will need to create 2 separate dataframes: one that contains all possible independent variables (metadata) and one that contains the dependent variables (beta diversity scores).
 ```
 #divide into 2 dataframes (independent vs. dependent variables) as needed for PERMANOVA
-IVs <- subset(beta_df, select = c("SampleID", "Subject", "Gender", "Day", "When")) 
-DVs <- subset(beta_df, select = -c(SampleID, Subject, Gender, Day, When)) 
+IVs <- subset(beta_df, select = c("SampleID", "Subject", "Gender", "Day", "Timepoint")) 
+DVs <- subset(beta_df, select = -c(SampleID, Subject, Gender, Day, Timepoint)) 
 
 #conduct PERMANOVA
 library(vegan)
-permanova <- adonis(DVs ~ When, data=IVs, permutations=999)
+permanova <- adonis(DVs ~ Timepoint, data=IVs, permutations=999)
 permanova
 ```
-In the permanova output, we can see that collection timepoint ("When") has a significant effect on beta diversity.
+In the permanova output, we can see that collection timepoint has a significant effect on beta diversity.
           
 
