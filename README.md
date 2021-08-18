@@ -179,7 +179,7 @@ View(phy_df)
 
 <img src="https://user-images.githubusercontent.com/88938223/129935058-0beb9c71-ffb8-49d4-a572-29f9431df772.png" width="600">
 
-2. Create publication-quality plot of individual samples. Note: if you have individual subjects data, you can change the facet variable to your subject variable. 
+2. Create publication-quality plot of individual samples. Note: if you have individual subjects data, you can add +facet_wrap(~Subject). 
 ```
 ggplot(phy_df, aes(x = Sample, y = Abundance, fill = Phylum)) +
   geom_bar(stat = "identity", position = "stack", color = "black") +
