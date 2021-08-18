@@ -212,7 +212,7 @@ ggplot(phy_avg, aes(x = Phylum, y = Abundance, fill=Phylum))+
   ylab("Relative Abundance")+
   scale_fill_brewer(palette="Paired")+
   my_theme+
-  theme(axis.text.x = element_text(size=14,angle=-45, vjust=-0.5))
+  theme(axis.text.x = element_text(size=14,angle=-45, hjust=0))
 ```
 
-<img src="https://user-images.githubusercontent.com/88938223/129936519-81f74368-2db2-40a7-933f-34c6a001873f.png" width="600">
+<img src="https://user-images.githubusercontent.com/88938223/129966269-eb3f4ae0-6630-4317-985f-73a337efefc6.png" width="600">
