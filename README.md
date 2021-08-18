@@ -159,6 +159,7 @@ In the permanova output, we can see that collection timepoint has a significant 
           
 #3. Taxa Abundance
 ### The next step is to determine how changes in specific levels of taxonomy may be driving these broader changes in alpha and beta diversity. Below, we will quantify taxa abundance at the level of the phylum, but please note that you can easily change this to other levels of taxonomy (e.g., Species, Family).
+An R syntax file containing the complete code for taxa abundance can be found [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_abundance.R).
 
 Note: you must import the phyloseq/ggplot packages and the phyloseq object ps. See instructions above if you have not already completed this step. 
 
