@@ -1,5 +1,5 @@
 # Downstream plotting and analysis of 16s microbiome data in R using phyloseq and ggplot
-### This tutorial will allow you to create publication-level graphs and convert phyloseq objects into dataframes for easier manipulation and analysis. Below you will find code for extracting alpha diversity, beta diversity, and taxa abundance. 
+### This beginner-friendly tutorial will allow you to create publication-level graphs and convert phyloseq objects into dataframes for easier manipulation and analysis. Below you will find code for extracting alpha diversity, beta diversity, and taxa abundance. 
 
 To begin, we will load packages and import a phyloseq object. ***This is necessary for all the following steps in this tutorial.***
 
