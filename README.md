@@ -32,7 +32,7 @@ sample_data(ps)$Timepoint<-sample_data(ps)$When
 
 # 1. Alpha Diversity 
 ### Alpha diversity is a gross measurement of species abundance/richness within a sample. There are several indices you can use to quantify alpha diversity. Here, we will use the Shannon and Simpson metrics.
-Note: click [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_alpha.R) if you would prefer to view the following alpha diversity syntax in an R script file.
+*Click [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_alpha.R) if you would prefer to view the following alpha diversity syntax in an R script file.*
 
 
 1. Create a basic alpha diversity plot. This is the type of plot you will find in phyloseq tutorials.
@@ -104,8 +104,7 @@ summary(model)
 
 # 2. Beta Diversity 
 ### Beta diversity is a gross measurement of dissimilarity between samples. There are several methods that can be used to conduct dimensionality reduction to calculate beta diversity. Here, we will use the NMDS method to calculate Bray-Curtis dissimilarity. Other methods (e.g., PCoA), can be found [here](https://joey711.github.io/phyloseq/plot_ordination-examples.html).
-Note: click [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_beta.R) if you would prefer to view the following beta diversity syntax in an R script file.
-
+*Click [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_beta.R) if you would prefer to view the following beta diversity syntax in an R script file.*
 Note: you must import the phyloseq/ggplot packages and the phyloseq object ps. See instructions above if you have not already completed this step. 
 
 1. Create basic Bray-Curtis plot
@@ -165,8 +164,7 @@ In the permanova output, we can see that collection timepoint has a significant 
           
 # 3. Taxa Abundance
 ### The next step is to determine how changes in specific levels of taxonomy may be driving these broader changes in alpha and beta diversity. Below, we will quantify taxa abundance at the level of the phylum, but please note that you can easily change this to other levels of taxonomy (e.g., Species, Family).
-Note: click [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_abundance.R) if you would prefer to view the following taxa abundance syntax in an R script file.
-
+*Click [here](https://github.com/mfrankz/microbiome/blob/main/phyloseq_abundance.R) if you would prefer to view the following taxa abundance syntax in an R script file.*
 Note: you must import the phyloseq/ggplot packages and the phyloseq object ps. See instructions above if you have not already completed this step. 
 
 1. Prepare phylum data by (1) converting counts to relative abundance, (2) isolating phylum data, and (3) converting the phylum data to a dataframe. 
