@@ -86,8 +86,13 @@ alpha_df$SampleID <- rownames(alpha_df) %>%
 alpha_df <- merge(alpha_df, sample_data(ps), by=0)
 names(alpha_df)[names(alpha_df) == "Row.names"] <- "SampleID"
 View(alpha_df)
+```
+<img src="https://user-images.githubusercontent.com/88938223/130094308-848888d1-ed08-4b1b-91fa-7ad9f253b1a8.png" width="500">
 
-#the dataframe format can now be used for easier manipulation/analyses. See examples below: 
+
+
+4. The dataframe format can now be used for easier manipulation/analyses. See examples below: 
+```
 #example 1: check distribution of alpha scores
 hist(alpha_df$Shannon)
 
@@ -155,7 +160,8 @@ permanova
 ```
 In the permanova output, we can see that collection timepoint has a significant effect on beta diversity.
 
-<img src="https://user-images.githubusercontent.com/88938223/129937278-c7ba41b5-ad6b-4c17-973b-c6efdce106d3.png" width="600">
+
+<img src="https://user-images.githubusercontent.com/88938223/130094075-803254db-948d-4577-9a11-e182fcc43cce.png" width="600">
           
 # 3. Taxa Abundance
 ### The next step is to determine how changes in specific levels of taxonomy may be driving these broader changes in alpha and beta diversity. Below, we will quantify taxa abundance at the level of the phylum, but please note that you can easily change this to other levels of taxonomy (e.g., Species, Family).
